@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/03/11 14:25:15 by aatki            ###   ########.fr       */
+/*   Updated: 2023/03/14 17:24:17 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+int	ft_atoi(const char *str);
 
 #endif

@@ -6,13 +6,68 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:22:50 by aatki             #+#    #+#             */
-/*   Updated: 2023/03/11 14:23:30 by aatki            ###   ########.fr       */
+/*   Updated: 2023/03/16 13:20:38 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac,char **av)
+int	main(int ac, char **av)
 {
-    
+	int	n_philosophers;
+	int	t_die;
+	int	t_eat;
+	int	t_sleep;
+	int	t_must_eat;
+	int	i;
+	int	k;
+	int	np_can_it;
+
+	i = 1;
+	k = 1;
+	if (ac == 6)
+	{
+		n_philosophers = ft_atoi(av[1]);
+		t_die = ft_atoi(av[2]);
+		t_eat = ft_atoi(av[3]);
+		t_sleep = ft_atoi(av[4]);
+		t_must_eat = ft_atoi(av[5]);
+		np_can_it = n_philosophers / 2;
+        n_philosophers++;
+		while (k <= 2)
+		{
+			i = k;
+			while (i < n_philosophers)
+			{
+				printf("timestamp_in_ms %d has taken a fork\n", i);
+				i += 2;
+			}
+			i = k;
+			while (i < n_philosophers)
+			{
+				printf("timestamp_in_ms %d is eating\n", i);
+				i += 2;
+			}
+			i = k;
+			
+			while (i < n_philosophers)
+			{
+				printf("timestamp_in_ms %d is sleeping\n", i);
+				i += 2;
+			}
+			i = k;
+			while (i < n_philosophers)
+			{
+				printf("timestamp_in_ms %d is thinking\n", i);
+				i += 2;
+			}
+			i = k;
+			while (i < n_philosophers)
+			{
+				printf("timestamp_in_ms %d died\n", i);
+				i += 2;
+			}
+			k++;
+		}
+	}
 }
