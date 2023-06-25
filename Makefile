@@ -1,7 +1,8 @@
 NAME = philo
 
 SRC = philo.c\
-	philo_utils.c
+	philo_utils.c\
+	main.c
 
 OBJ = ${SRC : .c == .o}
 
@@ -13,6 +14,7 @@ all : ${NAME}
 
 ${NAME} : ${SRC}
 	${CC} ${CFLAGS} ${SRC} -o ${NAME}
+
 clean :
 	rm -rf ${OBJ}
 
@@ -22,4 +24,4 @@ fclean :clean
 re : fclean all 
 
 git:
-	git add . && git commit -m "again" && git push
+	git add . && git commit -m "philo" && git push
