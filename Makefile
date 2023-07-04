@@ -23,5 +23,5 @@ fclean :clean
 
 re : fclean all 
 
-git:
+push:
 	git add . && git commit -m "philo" && git push
