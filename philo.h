@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/06/25 21:22:53 by aatki            ###   ########.fr       */
+/*   Updated: 2023/06/26 04:20:01 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,31 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct t_philo
+typedef struct t_general
 {
 	int				philo_num;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat;
+	pthread_mutex_t *forks;
+}t_general;
+
+typedef struct t_philo
+{
 	pthread_mutex_t	left;
 	pthread_mutex_t	right;
-	pthread_mutex_t *forks;
+	pthread_t		p;
 }					t_philo;
 
 typedef struct t_all
 {
 	t_philo			*philo;
+	t_general		*general;
+	int				i;
 }					t_all;
 
 int					ft_atoi(char *str);
-void				ft_philo(t_philo *philo);
+void				ft_philo(t_general *in);
 
 #endif
