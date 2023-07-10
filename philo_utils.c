@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:13:15 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/05 00:04:02 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/10 03:43:43 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,26 @@ void	for_normm(char *s, int *i, int *si)
 	else
 		*si = 1;
 	(*i)++;
+}
+
+unsigned long long	get_time(void)
+{
+	struct timeval	tp;
+
+	if (gettimeofday(&tp, NULL) == -1)
+		return (-1);
+	return (tp.tv_sec * 1000 + tp.tv_usec / 1000);
+}
+
+void	ft_sleep(unsigned long long time)
+{
+	unsigned long long	t;
+
+	t = get_time();
+	while (get_time() - t <= time)
+	{
+		usleep(50);
+	}
 }
 
 int	ft_atoi(char *str)
