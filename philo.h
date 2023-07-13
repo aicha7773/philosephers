@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 14:48:54 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/13 15:16:30 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,19 @@ typedef struct t_general
 	unsigned long long	time;
 }						t_general;
 
-typedef struct s_half
+typedef struct t_philo
 {
 	pthread_mutex_t		*left;
 	pthread_mutex_t		*right;
 	pthread_t			p;
 	int					eating_times;
 	unsigned long long	last_eat;
-}t_half;
-
-typedef struct t_philo
-{
-	t_half				*half;
 	int					i;
 	t_general			*gnrl;
 	pthread_mutex_t		last_eatm;
 	pthread_mutex_t		eating_timess;
 	pthread_mutex_t		print;
-}					t_philo;
-
+}						t_philo;
 
 typedef struct t_all
 {
