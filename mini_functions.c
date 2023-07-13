@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:43:39 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 05:44:46 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/13 14:03:53 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	ft_sleep(unsigned long long time)
 	}
 }
 
-void	ft_printf(char *s, t_all all)
+void	ft_printf(char *s, t_philo *philo,int flag)
 {
-	pthread_mutex_lock(&all.print);
-	printf("philo : %d %s %llu\n", all.i + 1, s, get_time() - all.time);
-	pthread_mutex_unlock(&all.print);
+	pthread_mutex_lock(&philo->print);
+	printf("philo : %d %s %llu\n", philo->i + 1, s, get_time() - philo->gnrl->time);
+	if(flag)
+		pthread_mutex_unlock(&philo->print);
 }

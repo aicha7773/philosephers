@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:22:50 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 05:49:18 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/13 14:35:11 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,74 +14,92 @@
 
 void	*threads_execution(void *arg)
 {
-	t_all	all;
+	t_philo	*private;
 
-	all = *(t_all *)arg;
+	private = (t_philo *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(all.philo[all.i].left);
-		ft_printf("take right in time : ", all);
-		pthread_mutex_lock(all.philo[all.i].right);
-		ft_printf("take left in time : ", all);
-		ft_printf(" eating in time ", all);
-		pthread_mutex_lock(&all.eat);
-		all.philo[all.i].last_eat = get_time();
-		pthread_mutex_unlock(&all.eat);
-		ft_sleep(all.general->time_to_eat);
-		pthread_mutex_lock(&all.eating_times);
-		all.philo[all.i].eating_times++;
-		pthread_mutex_unlock(&all.eating_times);
-		pthread_mutex_unlock(all.philo[all.i].left);
-		pthread_mutex_unlock(all.philo[all.i].right);
-		ft_printf("sleeping in time :", all);
-		ft_sleep(all.general->time_to_sleep);
+		pthread_mutex_lock(private->left);
+		ft_printf("take right in time : ", private, 1);
+		pthread_mutex_lock(private->right);
+		ft_printf("take left in time : ", private, 1);
+		ft_printf(" eating in time ", private, 1);
+		pthread_mutex_lock(&private->last_eatm);
+		private->last_eat = get_time();
+		pthread_mutex_unlock(&private->last_eatm);
+		ft_sleep(private->gnrl->time_to_eat);
+		pthread_mutex_lock(&private->eating_timess);
+		private->eating_times++;
+		pthread_mutex_unlock(&private->eating_timess);
+		pthread_mutex_unlock(private->left);
+		pthread_mutex_unlock(private->right);
+		ft_printf("sleeping in time :", private, 1);
+		ft_sleep(private->gnrl->time_to_sleep);
 	}
 	return (NULL);
 }
 
-void	program_starte(t_all all)
+void	program_starte(t_philo *private)
 {
 	int	i;
 
 	i = 0;
-	while (i < all.general->philo_num)
+	int period;
+	while (i < private->gnrl->philo_num)
 	{
-		all.i = i;
-		all.philo[i].left = &all.general->forks[i];
-		if (i + 1 == all.general->philo_num)
-			all.philo[i].right = &all.general->forks[0];
+		private[i].i = i;
+		private[i].left = &private->gnrl->forks[i];
+		if (i + 1 == private->gnrl->philo_num)
+			private[i].right = &private->gnrl->forks[0];
 		else
-			all.philo[i].right = &all.general->forks[i + 1];
-		pthread_mutex_lock(&all.philo_mutex);
-		pthread_create(&all.philo[i].p, NULL, &threads_execution, (void *)&all);
-		pthread_mutex_unlock(&all.philo_mutex);
+			private[i].right = &private->gnrl->forks[i + 1];
+		// pthread_mutex_lock(&private->philo_mutex);
+		pthread_create(&(private[i].p), NULL, &threads_execution, (void *)&private[i]);
+		// pthread_mutex_unlock(&private->philo_mutex);
 		usleep(50);
+		pthread_mutex_lock(&private[i].last_eatm);
+		period = get_time() - private[i].last_eat;
+		pthread_mutex_unlock(&private[i].last_eatm);
+		if (private->gnrl->time_to_sleep <= period)
+		{
+			ft_printf("die time :", private, 0);
+			// pthread_mutex_unlock(&all->philo_mutex);
+			exit(0);
+		}
+		// pthread_mutex_unlock(&all->philo_mutex);
+		i++;
 		i++;
 	}
 }
 
 void	ft_philo(t_general *in)
 {
-	t_all	all;
+	t_all	*all;
 	int		i;
+	t_philo *private;
 
 	i = 0;
-	all.general = in;
-	pthread_mutex_init(&all.eat, NULL);
-	pthread_mutex_init(&all.eating_times, NULL);
-	pthread_mutex_init(&all.print, NULL);
-	pthread_mutex_init(&all.philo_mutex, NULL);
-	all.philo = malloc(sizeof(t_philo) * in->philo_num);
-	all.time = get_time();
+	all = malloc(sizeof(t_all));
+	all->general = in;
+	private = malloc(sizeof(t_philo) * in->philo_num);
+	pthread_mutex_init(&private->last_eatm, NULL);
+	pthread_mutex_init(&private->eating_timess, NULL);
+	pthread_mutex_init(&private->print, NULL);
+	pthread_mutex_init(&all->philo_mutex, NULL);
+	//all->philo = malloc(sizeof(t_philo) * in->philo_num);
+	all->time = get_time();
+	in->time = get_time();
 	while (i < in->philo_num)
 	{
-		pthread_mutex_lock(&all.eat);
-		all.philo[i].last_eat = all.time;
-		pthread_mutex_unlock(&all.eat);
-		if (all.general->must_eat > 0)
-			all.philo[i].eating_times = 0;
+		private[i].last_eat = all->time;
+		private[i].gnrl=in;
+		if (all->general->must_eat > 0)
+			private[i].eating_times = 0;
 		i++;
 	}
-	program_starte(all);
-	check_death(all);
+	program_starte(private);
+	printf("---------\n");
+	all->philo = private;
+	//check_death(all);
+	free(all);
 }

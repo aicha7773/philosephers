@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 05:44:33 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/13 14:48:40 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct t_general
 	int					time_to_sleep;
 	int					must_eat;
 	pthread_mutex_t		*forks;
+	unsigned long long	time;
 }						t_general;
 
 typedef struct t_philo
@@ -36,17 +37,20 @@ typedef struct t_philo
 	pthread_t			p;
 	int					eating_times;
 	unsigned long long	last_eat;
+	int					i;
+	t_general			*gnrl;
+	pthread_mutex_t		last_eatm;
+	pthread_mutex_t		eating_timess;
+	pthread_mutex_t		print;
 }						t_philo;
+
 
 typedef struct t_all
 {
 	t_philo				*philo;
 	t_general			*general;
-	int					i;
 	unsigned long long	time;
-	pthread_mutex_t		eat;
-	pthread_mutex_t		eating_times;
-	pthread_mutex_t		print;
+	int					i;
 	pthread_mutex_t		philo_mutex;
 }						t_all;
 
@@ -54,7 +58,7 @@ int						ft_atoi(char *str);
 void					ft_philo(t_general *in);
 unsigned long long		get_time(void);
 void					ft_sleep(unsigned long long time);
-void					check_death(t_all all);
-void					ft_printf(char *s, t_all all);
+void					check_death(t_all *all);
+void					ft_printf(char *s, t_philo *all, int flag);
 
 #endif
