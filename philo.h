@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 15:16:30 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/15 07:00:40 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ typedef struct t_philo
 	unsigned long long	last_eat;
 	int					i;
 	t_general			*gnrl;
-	pthread_mutex_t		last_eatm;
-	pthread_mutex_t		eating_timess;
-	pthread_mutex_t		print;
+	struct t_all		*all;
 }						t_philo;
 
 typedef struct t_all
@@ -50,6 +48,9 @@ typedef struct t_all
 	t_general			*general;
 	unsigned long long	time;
 	int					i;
+	pthread_mutex_t		print;
+	pthread_mutex_t		last_eatm;
+	pthread_mutex_t		eating_timess;
 	pthread_mutex_t		philo_mutex;
 }						t_all;
 
@@ -58,6 +59,6 @@ void					ft_philo(t_general *in);
 unsigned long long		get_time(void);
 void					ft_sleep(unsigned long long time);
 void					check_death(t_all *all);
-void					ft_printf(char *s, t_philo *all, int flag);
+void					ft_printf(char *s, t_philo *philo, int flag);
 
 #endif

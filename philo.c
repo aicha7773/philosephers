@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:22:50 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 16:31:08 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/15 22:10:54 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,54 @@
 
 void	*threads_execution(void *arg)
 {
-	t_philo	*private;
+	t_philo *philo;
 
-	private = (t_philo *)arg;
+	philo = (t_philo *)arg;
+	printf("------->%d\n",philo->i);
+	//int i;
 	while (1)
 	{
-		pthread_mutex_lock(private->left);
-		ft_printf("take right in time : ", private, 1);
-		pthread_mutex_lock(private->right);
-		ft_printf("take left in time : ", private, 1);
-		ft_printf(" eating in time ", private, 1);
-		pthread_mutex_lock(&private->last_eatm);
-		private->last_eat = get_time();
-		pthread_mutex_unlock(&private->last_eatm);
-		ft_sleep(private->gnrl->time_to_eat);
-		pthread_mutex_lock(&private->eating_timess);
-		private->eating_times++;
-		pthread_mutex_unlock(&private->eating_timess);
-		pthread_mutex_unlock(private->left);
-		pthread_mutex_unlock(private->right);
-		ft_printf("sleeping in time :", private, 1);
-		ft_sleep(private->gnrl->time_to_sleep);
+		pthread_mutex_lock(philo->left);
+		ft_printf("take left fork in time : ", philo, 1);
+		pthread_mutex_lock(philo->right);
+		ft_printf("take right fork in time : ", philo, 1);
+		ft_printf(" eating in time ", philo, 1);
+		pthread_mutex_lock(&philo->all->last_eatm);
+		philo->last_eat = get_time();
+		pthread_mutex_unlock(&philo->all->last_eatm);
+		ft_sleep(200);
+		pthread_mutex_lock(&philo->all->eating_timess);
+		philo->eating_times++;
+		pthread_mutex_unlock(&philo->all->eating_timess);
+		pthread_mutex_unlock(philo->left);
+		pthread_mutex_unlock(philo->right);
+		ft_printf("sleeping in time :", philo, 1);
+		ft_sleep(100);
 	}
 	return (NULL);
 }
 
-void	program_starte(t_philo *private)
+void	program_starte(t_all *all)
 {
 	int	i;
 
 	i = 0;
-	while (i < private->gnrl->philo_num)
+	while (i < all->general->philo_num)
 	{
-		private[i].i = i;
-		private[i].left = &private->gnrl->forks[i];
-		if (i + 1 == private->gnrl->philo_num)
-			private[i].right = &private->gnrl->forks[0];
+		all->i = i;
+		all->philo[i].left = &all->general->forks[i];
+		if (i + 1 == all->general->philo_num)
+			all->philo[i].right = &all->general->forks[0];
 		else
-			private[i].right = &private->gnrl->forks[i + 1];
-		// pthread_mutex_lock(&private->philo_mutex);
-		pthread_create(&(private[i].p), NULL, &threads_execution, (void *)&private[i]);
-		// pthread_mutex_unlock(&private->philo_mutex);
+			all->philo[i].right = &all->general->forks[i + 1];
+		all->philo[i].all=all;
+		all->philo[i].i = i;
+		i++;
+	}
+	i = 0;
+	while (i < all->general->philo_num)
+	{
+		pthread_create(&(all->philo[i].p), NULL, &threads_execution, &all->philo[i]);
 		usleep(50);
 		i++;
 	}
@@ -70,9 +77,9 @@ void	ft_philo(t_general *in)
 	all = malloc(sizeof(t_all));
 	all->general = in;
 	private = malloc(sizeof(t_philo) * in->philo_num);
-	pthread_mutex_init(&private->last_eatm, NULL);
-	pthread_mutex_init(&private->eating_timess, NULL);
-	pthread_mutex_init(&private->print, NULL);
+	pthread_mutex_init(&all->last_eatm, NULL);
+	pthread_mutex_init(&all->eating_timess, NULL);
+	pthread_mutex_init(&all->print, NULL);
 	pthread_mutex_init(&all->philo_mutex, NULL);
 	//all->philo = malloc(sizeof(t_philo) * in->philo_num);
 	all->time = get_time();
@@ -85,9 +92,10 @@ void	ft_philo(t_general *in)
 			private[i].eating_times = 0;
 		i++;
 	}
-	program_starte(private);
-	printf("---------\n");
 	all->philo = private;
+	program_starte(all);
+	printf("---------\n");
 	check_death(all);
 	free(all);
 }
+
