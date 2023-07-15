@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:22:50 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/15 22:10:54 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/15 22:12:36 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	*threads_execution(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	printf("------->%d\n",philo->i);
-	//int i;
 	while (1)
 	{
 		pthread_mutex_lock(philo->left);
@@ -81,7 +79,6 @@ void	ft_philo(t_general *in)
 	pthread_mutex_init(&all->eating_timess, NULL);
 	pthread_mutex_init(&all->print, NULL);
 	pthread_mutex_init(&all->philo_mutex, NULL);
-	//all->philo = malloc(sizeof(t_philo) * in->philo_num);
 	all->time = get_time();
 	in->time = get_time();
 	while (i < in->philo_num)
@@ -94,7 +91,6 @@ void	ft_philo(t_general *in)
 	}
 	all->philo = private;
 	program_starte(all);
-	printf("---------\n");
 	check_death(all);
 	free(all);
 }

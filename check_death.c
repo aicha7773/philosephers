@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:34:12 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/15 07:03:06 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/15 22:27:41 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	last_meal(t_all *all)
 		pthread_mutex_lock(&all->eating_timess);
 		integer = all->philo[i].eating_times;
 		pthread_mutex_unlock(&all->eating_timess);
-		if ( integer <= all->general->must_eat)
+		if ( integer < all->general->must_eat)
 			return (1);
 		i++;
 	}
-	ft_printf("die case 2 time :", &all->philo[i], 0);
+	ft_printf("die case 2 time :", &all->philo[i - 1], 0);
 	return (0);
 }
 
