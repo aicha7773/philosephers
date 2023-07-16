@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:43:39 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 05:35:13 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/16 06:46:18 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_sleep(unsigned long long time)
 	t = get_time();
 	while (get_time() - t <= time)
 	{
-		usleep(50);
+		usleep(100);
 	}
 }
 

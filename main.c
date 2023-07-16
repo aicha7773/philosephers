@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:08:37 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 05:39:55 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/16 06:41:50 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	for_norm(char **av, t_general **general)
 	{
 		(*general)->must_eat = ft_atoi(av[5]);
 		if (!(*general)->must_eat)
-			return (0);
+			return (-1);
 		if ((*general)->must_eat < 0)
 			return (ft_error());
 	}
@@ -42,7 +42,7 @@ int	spliting_up(char **av, t_general **general)
 
 	i = 0;
 	*general = malloc(sizeof(t_general));
-	if (!for_norm(av, general))
+	if (for_norm(av, general) == -1)
 		return (0);
 	(*general)->forks = malloc(sizeof(pthread_mutex_t) * (*general)->philo_num);
 	while (i < (*general)->philo_num)
@@ -67,7 +67,7 @@ int	main(int ac, char **av)
 			ft_philo(general);
 			while (i < general->philo_num)
 			{
-				pthread_mutex_destroy(&general->forks[i]);
+				//pthread_mutex_destroy(&general->forks[i]);
 				i++;
 			}
 			free(general->forks);

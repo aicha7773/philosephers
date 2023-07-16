@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:22:50 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 05:36:21 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/16 06:57:14 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	program_starte(t_all *all)
 	{
 		pthread_create(&(all->philo[i].p), NULL, &threads_execution,
 			&all->philo[i]);
-		usleep(50);
+		usleep(500);
 		i++;
 	}
 }
@@ -92,5 +92,5 @@ void	ft_philo(t_general *in)
 	all->philo = private;
 	program_starte(all);
 	check_death(all);
-	free(all);
+	// free(all);
 }

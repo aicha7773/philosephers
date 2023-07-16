@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 05:16:40 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/16 06:47:53 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
 
 typedef struct t_general
 {
