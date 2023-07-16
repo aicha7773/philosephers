@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/15 07:00:40 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/16 05:16:40 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct t_all
 	pthread_mutex_t		print;
 	pthread_mutex_t		last_eatm;
 	pthread_mutex_t		eating_timess;
-	pthread_mutex_t		philo_mutex;
 }						t_all;
 
 int						ft_atoi(char *str);
@@ -60,5 +59,6 @@ unsigned long long		get_time(void);
 void					ft_sleep(unsigned long long time);
 void					check_death(t_all *all);
 void					ft_printf(char *s, t_philo *philo, int flag);
+int						ft_error(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:13:15 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/13 05:47:06 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/16 05:16:34 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	ft_max(unsigned long long a, int sign)
 	return ((int)a * sign);
 }
 
-int ft_error()
+int	ft_error(void)
 {
-	printf("ERROOR\n");
-	return 0;
+	printf("ERROR\n");
+	return (-1);
 }
 
 void	for_normm(char *s, int *i, int *si)
@@ -46,7 +46,7 @@ int	ft_atoi(char *str)
 	si = 1;
 	a = 0;
 	if (!str)
-		return 0;
+		return (-1);
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
