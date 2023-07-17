@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:43:39 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 06:46:18 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/17 01:07:10 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_sleep(unsigned long long time)
 void	ft_printf(char *s, t_philo *philo, int flag)
 {
 	pthread_mutex_lock(&philo->all->print);
-	printf("philo : %d %s %llu\n", philo->i + 1, s, get_time()
-		- philo->all->time);
+	printf("%llu philo : %d %s \n", get_time() - philo->all->time, philo->i + 1,
+			s);
 	if (flag)
 		pthread_mutex_unlock(&philo->all->print);
 }

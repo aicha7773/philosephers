@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:13:15 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 05:16:34 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/17 01:18:22 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_atoi(char *str)
 	if (str[i] == '-' || str[i] == '+')
 		for_normm(str, &i, &si);
 	if (!(str[i] >= '0' && str[i] <= '9'))
-		return (ft_error());
+		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -60,6 +60,6 @@ int	ft_atoi(char *str)
 		i++;
 	}
 	if ((!(str[i] >= '0' && str[i] <= '9') && str[i] != '\0') || a > 2147483647)
-		return (ft_error());
+		return (-1);
 	return (a * si);
 }

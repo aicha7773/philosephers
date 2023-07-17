@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:34:12 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 06:57:45 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/17 01:06:02 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_death(t_all *all)
 		pthread_mutex_unlock(&all->last_eatm);
 		if (all->general->time_to_die <= period)
 		{
-			ft_printf("die time :", &all->philo[i], 0);
+			ft_printf("died", &all->philo[i], 0);
 			return (0);
 		}
 		i++;
@@ -53,13 +53,12 @@ int	ft_death(t_all *all)
 	return (1);
 }
 
-void	check_death(t_all *all)
+void	check_death(t_all **all)
 {
 	while (1)
 	{
-		if (!ft_death(all))
+		if (!ft_death(*all))
 		{
-			free(all->philo);
 			break ;
 		}
 		usleep(50);

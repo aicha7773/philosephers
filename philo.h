@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/16 06:47:53 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/17 00:21:23 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-
 
 typedef struct t_general
 {
@@ -58,7 +57,7 @@ int						ft_atoi(char *str);
 void					ft_philo(t_general *in);
 unsigned long long		get_time(void);
 void					ft_sleep(unsigned long long time);
-void					check_death(t_all *all);
+void					check_death(t_all **all);
 void					ft_printf(char *s, t_philo *philo, int flag);
 int						ft_error(void);
 
