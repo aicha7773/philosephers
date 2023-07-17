@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:22:50 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/17 01:05:44 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/17 08:03:00 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	program_starte(t_all *all)
 	i = 0;
 	while (i < all->general->philo_num)
 	{
+		all->philo[i].last_eat = get_time();
 		pthread_create(&(all->philo[i].p), NULL, &threads_execution,
 			&all->philo[i]);
 		usleep(500);
@@ -67,16 +68,15 @@ void	program_starte(t_all *all)
 	}
 }
 
-void	ft_philo(t_general *in)
+t_all	*ft_philo(t_general *in)
 {
 	t_all	*all;
 	int		i;
-	t_philo	*private;
 
 	i = 0;
 	all = malloc(sizeof(t_all));
 	all->general = in;
-	private = malloc(sizeof(t_philo) * in->philo_num);
+	all->philo = malloc(sizeof(t_philo) * in->philo_num);
 	pthread_mutex_init(&all->last_eatm, NULL);
 	pthread_mutex_init(&all->eating_timess, NULL);
 	pthread_mutex_init(&all->print, NULL);
@@ -84,13 +84,13 @@ void	ft_philo(t_general *in)
 	in->time = get_time();
 	while (i < in->philo_num)
 	{
-		private[i].last_eat = all->time;
-		private[i].gnrl = in;
+		all->philo[i].last_eat = all->time;
+		all->philo[i].gnrl = in;
 		if (all->general->must_eat > 0)
-			private[i].eating_times = 0;
+			all->philo[i].eating_times = 0;
 		i++;
 	}
-	all->philo = private;
 	program_starte(all);
 	check_death(&all);
+	return (all);
 }

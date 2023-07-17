@@ -6,7 +6,7 @@
 /*   By: aatki <aatki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:23:38 by aatki             #+#    #+#             */
-/*   Updated: 2023/07/17 00:21:23 by aatki            ###   ########.fr       */
+/*   Updated: 2023/07/17 04:44:18 by aatki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct t_all
 }						t_all;
 
 int						ft_atoi(char *str);
-void					ft_philo(t_general *in);
+t_all					*ft_philo(t_general *in);
 unsigned long long		get_time(void);
 void					ft_sleep(unsigned long long time);
 void					check_death(t_all **all);
